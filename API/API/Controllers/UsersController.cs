@@ -21,7 +21,7 @@ namespace API.Controllers
             _logger = logger;
             _context=context;
         }
-        [Authorize]
+       
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
