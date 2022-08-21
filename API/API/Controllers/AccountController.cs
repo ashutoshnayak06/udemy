@@ -48,7 +48,7 @@ namespace API.Controllers
 
         }
         [HttpPost("login")]
-         public async Task<ActionResult<UserDto>>Login(LoginDTO rdto)
+         public async Task<ActionResult<UserDto> >Login(LoginDTO rdto)
          {
                 var user=await _context.User.SingleOrDefaultAsync(x=>x.UserName==rdto.Username);
                 if(user==null) return Unauthorized("Invalid Username");
