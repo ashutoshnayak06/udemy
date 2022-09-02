@@ -20,8 +20,8 @@ export class AccountService {
         const user=res;
         if(user)
         {
-          localStorage.setItem('user',JSON.stringify(user) );
-          this.currentuserSource.next(user);
+         
+          this.setCurrentUser(user);
         }
       })
     )
@@ -32,8 +32,7 @@ export class AccountService {
     .pipe(map((user:User)=>{
       if(user){
          
-        localStorage.setItem('user',JSON.stringify(user));
-        this.currentuserSource.next(user);
+        this.setCurrentUser(user);
       }
  
     }));
@@ -41,6 +40,7 @@ export class AccountService {
   }
   setCurrentUser(user:User)
   {
+    localStorage.setItem('user',JSON.stringify(user) );
     this.currentuserSource.next(user);
   }
 
@@ -48,5 +48,11 @@ export class AccountService {
   logout(){
     localStorage.removeItem('user');
     this.currentuserSource.next(null);
+  }
+
+  UploadFiles(file:File){
+    const formData = new FormData();
+    formData.append('File', file);
+   return this.http.post(this.baseurl+'users/add-photo',formData)
   }
 }
