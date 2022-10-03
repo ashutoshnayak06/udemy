@@ -30,6 +30,7 @@ export class PhotoEditorComponent implements OnInit {
       {
         next: (v)=>{
           this.member=v;
+         
          },
          error:(e)=>{
         
@@ -76,7 +77,11 @@ export class PhotoEditorComponent implements OnInit {
           next: (v) =>{console.log(v)
             this.toastr.success('Photo Uploaded Sucessfully');
             this.files=[];
+            
             this.loadMember();
+
+            this.accountService.setCurrentUser(this.user);
+            
           },
           error: (e) => {console.error(e)
             this.toastr.error(e.error)

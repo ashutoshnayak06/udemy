@@ -4,6 +4,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ToastrModule } from 'ngx-toastr';
 import { GalleryModule } from 'ng-gallery';
 import {TabsModule} from 'ngx-bootstrap/tabs';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker'
+import {PaginationModule} from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TimeagoModule } from 'ngx-timeago';
 // import {NgxGalleryModule} from '@kolkov/ngx-gallery';
 @NgModule({
   declarations: [],
@@ -14,14 +18,22 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
       positionClass:'toast-bottom-right'
     }),
     TabsModule.forRoot(),
-    GalleryModule
+    GalleryModule,
+    BsDatepickerModule.forRoot(),
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
+    //TimeagoModule.forRoot()
     // NgxGalleryModule
   ],
   exports:[
     BsDropdownModule,
     ToastrModule,
     TabsModule,
-    GalleryModule
+    GalleryModule,
+    BsDatepickerModule,
+    PaginationModule,
+    ButtonsModule,
+    //TimeagoModule
     // NgxGalleryModule
   ]
 })
