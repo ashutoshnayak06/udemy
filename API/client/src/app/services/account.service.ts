@@ -40,6 +40,10 @@ export class AccountService {
   }
   setCurrentUser(user:User)
   {
+    user.roles=[];
+    const roles=this.getDecodedToken(user.token).role;
+    Array.isArray(roles)?user.roles=roles:user.roles.push(roles);
+    
     localStorage.setItem('user',JSON.stringify(user) );
     this.currentuserSource.next(user);
   }
@@ -54,5 +58,9 @@ export class AccountService {
     const formData = new FormData();
     formData.append('File', file);
    return this.http.post(this.baseurl+'users/add-photo',formData)
+  }
+
+  getDecodedToken(token:string){
+   return JSON.parse(atob(token.split('.')[1]))
   }
 }

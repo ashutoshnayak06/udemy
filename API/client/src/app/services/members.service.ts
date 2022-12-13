@@ -9,6 +9,7 @@ import { User } from '../models/user';
 import { Userparams } from '../models/userparams';
 import { AccountService } from './account.service';
 import { take } from 'rxjs';
+import { getPaginatedResult, getpaginationHeaders } from './paginationHelper';
 
 
 @Injectable({
@@ -42,15 +43,7 @@ resetUserParams(){
 setUserParams(params:Userparams){
   this.userParams=params;
 }
-  private getpaginationHeaders(pageNumber:number,pageSize:number)
-  {
-
-   let params=new HttpParams()
-   
-      params= params.append("pageNumber",pageNumber.toString());
-      params= params.append("pageSize",pageSize.toString());
-      return params;
-  }
+  
    getMembers(userParams:Userparams)
    {
       var response=this.memberCache.get(Object.values(userParams).join('-'));
@@ -59,33 +52,20 @@ setUserParams(params:Userparams){
           return of(response);
       }
       
-      let params=this.getpaginationHeaders(userParams.pageNumber,userParams.pageSize);
+      let params=getpaginationHeaders(userParams.pageNumber,userParams.pageSize);
       
       params=params.append('minAge',userParams.minAge.toString());
       params=params.append('maxAge',userParams.maxAge.toString());
       params=params.append('gender',userParams.gender);
       params=params.append('orderBy',userParams.orderBy);
       
-      return this.getPaginatedResult<Member[]>(this.baseUrl, params)
+      return getPaginatedResult<Member[]>(this.baseUrl+'users', params,this.httpclint)
             .pipe(map(response=>{
                this.memberCache.set(Object.values(userParams).join('-'),response);
                return response;
             }))   
    }
-   private getPaginatedResult<T>(url,params) {
-      const paginatedResult:PaginatedResult<T> = new PaginatedResult<T>();
-      return this.httpclint.get<T>(this.baseUrl + 'users', { observe: 'response', params })
-         .pipe(
-            map(response => {
-               paginatedResult.result = response.body;
-               if (response.headers.get("Pagination") !== null) {
-                  paginatedResult.pagination = JSON.parse(response.headers.get("pagination"));
-
-               }
-               return paginatedResult;
-            })
-         );
-   }
+  
 
    getMember(username:string):Observable<any>
    {
@@ -110,5 +90,20 @@ setUserParams(params:Userparams){
    }
    deletePhoto(photoId:number){
      return this.httpclint.delete(this.baseUrl+'users/delete-photo/'+photoId);
+   }
+
+   addLike(username:string){
+
+      return this.httpclint.post(this.baseUrl+'likes/'+username,{
+
+      });
+   }
+   getLikes(predicate:string,pageNumber,pageSize){
+
+      let params= getpaginationHeaders(pageNumber,pageSize);
+      params=params.append('predicate',predicate);
+
+      return getPaginatedResult<Partial<Member[]>>(this.baseUrl+'likes',params,this.httpclint);
+      //return this.httpclint.get<Partial<Member[]>>(this.baseUrl+'likes?predicate='+predicate)
    }
 }

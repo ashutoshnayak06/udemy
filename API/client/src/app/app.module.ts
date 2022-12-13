@@ -29,6 +29,9 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { TestInputsComponent } from './_forms/test-inputs/test-inputs.component';
 import { DateInputComponent } from './_forms/date-input/date-input.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +49,10 @@ import { DateInputComponent } from './_forms/date-input/date-input.component';
     MemberEditComponent,
     PhotoEditorComponent,
     TestInputsComponent,
-    DateInputComponent
+    DateInputComponent,
+    MemberMessagesComponent,
+    AdminPanelComponent,
+    HasRoleDirective
   ],
   imports: [
     BrowserModule,
