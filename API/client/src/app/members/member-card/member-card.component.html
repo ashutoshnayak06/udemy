@@ -18,7 +18,11 @@
     </div>
      <div class="card-body " style="padding: 1px;">
         <h6 class="card-title test-center " style="margin-bottom:1px ;">
-            <i class="fa-user "style="margin-right:1px">{{member.knownAs}},{{member.age}}</i>
+
+            <span [class.is-online]="(presenceService.onlineUsers |async)?.includes(member.username)">
+                <i class="fa fa-user me-2 "style="margin-right:1px"></i>
+            </span>
+            {{member.knownAs}},{{member.age}}
         </h6>
         <p class="card-text text-muted text-center">{{member.city}}</p>
      </div>

@@ -6,6 +6,7 @@ using API.Data;
 using API.Helper;
 using API.Interfaces;
 using API.Services;
+using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,8 @@ namespace API.Extensions
 
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
-
+           
+        
             return services;
        }
     }

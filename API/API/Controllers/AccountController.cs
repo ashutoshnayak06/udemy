@@ -66,6 +66,7 @@ namespace API.Controllers
                var result=await _userManager.CheckPasswordAsync(user,rdto.Password);
                 
                 if(!result) return Unauthorized("Inavalif Password");
+             
                 return new UserDto{
                     Username=user.UserName,
                     Token=await _tokenService.CreateToken(user),
