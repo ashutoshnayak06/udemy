@@ -30,7 +30,8 @@ export class MemberDetailComponent implements OnInit,AfterViewInit,OnDestroy {
      private memberService:MembersService,
     private router:ActivatedRoute,
     private messageService:MessageService,
-    public presenceService:PresenceService) { 
+    public presenceService:PresenceService,
+    private route:Router) { 
     
       this.accountService.currentuser$.pipe(take(1)).subscribe(
         {
@@ -39,7 +40,9 @@ export class MemberDetailComponent implements OnInit,AfterViewInit,OnDestroy {
             
           }
         }
-      )
+      );
+
+      this.route.routeReuseStrategy.shouldReuseRoute=()=>false;
    
 
     }
