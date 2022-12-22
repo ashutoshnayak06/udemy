@@ -10,7 +10,6 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -24,6 +23,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: "{{defaultContext}}:API"
+          context: "{{defaultContext}}:API/API"
           push: true
           tags: ashutosh1594/datingapp:latest
