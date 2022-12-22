@@ -1,0 +1,35 @@
+<div class="row" >
+    <div *ngFor="let photo of member.photos" class="col-2">
+          <img src="{{photo.url}}" alt="{{photo.url}}" class="img-thumbnail" style="padding: 1px;">
+         <div class="text-center">
+            <button 
+              [disabled]="photo.isMain"
+              (click)="setMainPhoto(photo)"
+              [ngClass]='photo.isMain? "btn-success active":"btn-outline-success"'
+            class="btn btn-sm"
+            >Main</button>
+            <button 
+            [disabled]="photo.isMain"
+            (click)="deletePhoto(photo.id)"
+            class="btn btn-danger" 
+            style="height: 35px;width: 40px;">
+            <i style="height: 2px;" class="fa fa-trash"></i>
+          </button>
+         </div>
+    
+    </div>
+</div>
+<div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
+	<ngx-dropzone-label>
+		<div>
+			<h3>Drop/Upload Photos</h3>
+		</div>
+	</ngx-dropzone-label>
+	<ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+		<ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+	</ngx-dropzone-image-preview>
+    
+</div>
+<div style="margin-left: 45%;">
+    <button type="submit" (click)="UploadFiles()" class="btn btn-primary" style="margin-left:5px ;">Upload Photo</button>
+</div>
