@@ -38,9 +38,42 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServices(_config);
+             var IsDevelopment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
+            var envString="";
+             if (!IsDevelopment)
+             {
+            string connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            if (string.IsNullOrEmpty(connectionUrl))
+            {
+                envString=_config.GetConnectionString("DefaultConnection");
+            }
+            else{
+                var databaseUri = new Uri(connectionUrl);
+
+            string db = databaseUri.LocalPath.TrimStart('/');
+            string[] userInfo = databaseUri.UserInfo.Split(':', StringSplitOptions.RemoveEmptyEntries);
+
+            envString= $"User ID={userInfo[0]};Password={userInfo[1]};Host={databaseUri.Host};Port={databaseUri.Port};Database={db};Pooling=true;SSL Mode=Require;Trust Server Certificate=True;";
+                }
+            
+          
+             }
+
+          
+
+            var connectionString = IsDevelopment ? _config.GetConnectionString("DefaultConnection") : envString;
+
+
+
+
+
+            services.AddDbContext<DataContext>(options => options.UseNpgsql(connectionString));
             services.AddControllers();
             services.AddCors();
             services.AddIdentityServices(_config);
+
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -82,5 +115,7 @@ namespace API
             
       
         }
+
+  
     }
 }

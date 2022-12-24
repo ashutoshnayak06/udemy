@@ -28,10 +28,10 @@ namespace API.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             
             
-            services.AddDbContext<DataContext>(options =>{
+            // services.AddDbContext<DataContext>(options =>{
 
-                options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
-            });
+            //     options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+            // });
            
         
             return services;
