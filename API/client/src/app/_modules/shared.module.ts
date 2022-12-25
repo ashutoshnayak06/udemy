@@ -24,8 +24,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
-    ModalModule.forRoot()
-    //TimeagoModule.forRoot()
+    ModalModule.forRoot(),
+    TimeagoModule.forRoot()
     // NgxGalleryModule
   ],
   exports:[
@@ -36,8 +36,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     BsDatepickerModule,
     PaginationModule,
     ButtonsModule,
-    ModalModule
-    //TimeagoModule
+    ModalModule,
+    TimeagoModule
     // NgxGalleryModule
   ]
 })

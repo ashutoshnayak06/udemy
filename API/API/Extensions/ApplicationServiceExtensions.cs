@@ -17,6 +17,7 @@ namespace API.Extensions
     {
        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
        {
+            services.AddCors();
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService,PhotoService>();
             services.AddScoped<ITokenService,TokenService>();
@@ -27,11 +28,13 @@ namespace API.Extensions
             // services.AddScoped<IUserRepository,UserRepository>();
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             
+             services.AddSignalR();
+            services.AddSingleton<PresenceTracker>();
             
-            // services.AddDbContext<DataContext>(options =>{
+            services.AddDbContext<DataContext>(options =>{
 
-            //     options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
-            // });
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+            });
            
         
             return services;

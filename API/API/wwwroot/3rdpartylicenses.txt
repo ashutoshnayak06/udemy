@@ -152,6 +152,9 @@ MIT
 ngx-spinner
 MIT
 
+ngx-timeago
+MIT
+
 ngx-toastr
 MIT
 The MIT License (MIT)
